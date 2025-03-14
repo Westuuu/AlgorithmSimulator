@@ -11,7 +11,7 @@
 template<typename T>
 class InsertionSort {
 public:
-    static void sort(T arr[], size_t n) {
+    static void sort(T arr[], int n) {
         for (int i = 1; i < n; ++i) {
             T key = arr[i];
             int j = i - 1;

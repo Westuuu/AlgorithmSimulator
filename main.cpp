@@ -1,5 +1,6 @@
 #include <iostream>
 #include "SortingAlgorithms/InsertionSort.h"
+#include "SortingAlgorithms/HeapSort.h"
 
 using namespace std;
 
@@ -14,7 +15,7 @@ int main() {
         cout << arr[i] << endl;
     }
     cout << "Sorted:" << endl;
-    InsertionSort<int>::sort(arr, n);
+    HeapSort<int>::sort(arr, n);
     for (int i = 0; i < n; ++i) {
         cout << arr[i] << endl;
     }
@@ -25,7 +26,7 @@ int main() {
         cout << farr[i] << endl;
     }
     cout << "Sorted:" << endl;
-    InsertionSort<float>::sort(farr, fn);
+    HeapSort<float>::sort(farr, fn);
     for (int i = 0; i < fn; ++i) {
         cout << farr[i] << endl;
     }
