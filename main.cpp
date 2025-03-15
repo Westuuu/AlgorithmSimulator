@@ -1,36 +1,31 @@
 #include <iostream>
 #include "SortingAlgorithms/InsertionSort.h"
 #include "SortingAlgorithms/HeapSort.h"
+#include "Data/GenerateData.h"
 
 using namespace std;
 
 int main() {
-    int arr[] = {0, 0, 5, 4, 3, 2, 1, 3};
-    float farr[] = {5.0, 4.02, 3.01, 3.02, 2.1, 1.6};
+    int ARRAY_SIZE = 70000;
+    int MAX_SIZE = 50000;
+    auto *arr = new int[ARRAY_SIZE];
+    GenerateData<int>::generateRandom(arr, ARRAY_SIZE, MAX_SIZE);
 
-    size_t n = sizeof(arr) / sizeof(arr[0]);
-    size_t fn = sizeof(farr) / sizeof(farr[0]);
+    auto *darr = new double[ARRAY_SIZE];
+    GenerateData<double>::generateRandom(darr, ARRAY_SIZE, MAX_SIZE);
 
-    for (int i = 0; i < n; ++i) {
-        cout << arr[i] << endl;
-    }
-    cout << "Sorted:" << endl;
-    HeapSort<int>::sort(arr, n);
-    for (int i = 0; i < n; ++i) {
-        cout << arr[i] << endl;
-    }
+
+    HeapSort<int>::sort(arr, ARRAY_SIZE);
+    cout << "Heapsort finished" << endl;
 
     cout << endl;
 
-    for (int i = 0; i < fn; ++i) {
-        cout << farr[i] << endl;
-    }
-    cout << "Sorted:" << endl;
-    HeapSort<float>::sort(farr, fn);
-    for (int i = 0; i < fn; ++i) {
-        cout << farr[i] << endl;
-    }
+    InsertionSort<double>::sort(darr, ARRAY_SIZE);
+    cout << "Insertion sort finished" << endl;
 
+
+    delete[] arr;
+    delete[] darr;
 
     return 0;
 }
