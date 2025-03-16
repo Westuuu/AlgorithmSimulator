@@ -2,16 +2,16 @@
 // Created by Adam on 16/03/2025.
 //
 
-#include "ResultsManager.h"
+#include "ResultsController.h"
 #include <fstream>
 #include <iostream>
 #include <iomanip>
 
-void ResultsManager::addResult(const SortingResult &result) {
+void ResultsController::addResult(const SortingResult &result) {
     results.push_back(result);
 }
 
-void ResultsManager::saveResultsToCSV(const std::string &filename) {
+void ResultsController::saveResultsToCSV(const std::string &filename) {
     std::ofstream file(filename);
 
     if (!file.is_open()) {
@@ -36,7 +36,7 @@ void ResultsManager::saveResultsToCSV(const std::string &filename) {
 }
 
 
-std::string ResultsManager::arrangementToString(const DataArrangement& arrangement) {
+std::string ResultsController::arrangementToString(const DataArrangement& arrangement) {
     switch(arrangement) {
         case DataArrangement::FULLY_SORTED_ASCENDING:
             return "Sorted ascending";

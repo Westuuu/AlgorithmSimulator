@@ -2,11 +2,11 @@
 // Created by Adam on 16/03/2025.
 //
 
-#ifndef AIZO1_RESULTSMANAGER_H
-#define AIZO1_RESULTSMANAGER_H
+#ifndef AIZO1_RESULTSCONTROLLER_H
+#define AIZO1_RESULTSCONTROLLER_H
 
 #include <vector>
-#include "DataArrangement.h"
+#include "../Data/DataArrangement.h"
 
 struct SortingResult {
     std::string algorithmName;
@@ -16,7 +16,7 @@ struct SortingResult {
     bool sortedCorrectly;
 };
 
-class ResultsManager {
+class ResultsController {
 private:
     std::vector<SortingResult> results;
 
@@ -26,4 +26,4 @@ public:
     static std::string arrangementToString(const DataArrangement& arrangement);
 };
 
-#endif //AIZO1_RESULTSMANAGER_H
+#endif //AIZO1_RESULTSCONTROLLER_H

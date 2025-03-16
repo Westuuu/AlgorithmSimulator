@@ -1,3 +1,5 @@
 # ninja log v5
-3	316	1742042200687999399	CMakeFiles/Aizo1.dir/main.cpp.o	690bdd9c801cfc48
-316	350	1742042200724599422	Aizo1	f3558b075d3f6799
+17	345	1742149995952454156	CMakeFiles/Aizo1.dir/main.cpp.o	690bdd9c801cfc48
+324	363	1742150255059120637	Aizo1	e2e13581675d16b1
+5	324	1742150255017897084	CMakeFiles/Aizo1.dir/Controllers/SimulationController.cpp.o	71535c2c8d26bbe1
+4	301	1742150254994706340	CMakeFiles/Aizo1.dir/Data/ResultsManager.cpp.o	b79669c1f861cb29
