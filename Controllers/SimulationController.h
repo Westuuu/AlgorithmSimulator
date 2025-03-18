@@ -68,8 +68,10 @@ public:
         std::vector<DataArrangement> dataArrangements = getDataArrangements();
 
         for (auto arrangement: dataArrangements) {
+            dataManager.setDataArrangement(arrangement);
+
             for (int i = 0; i < ITERATIONS; ++i) {
-                dataManager.setDataArrangement(arrangement);
+                dataManager.generateData(arrangement);
 
                 for (int j = 0; j < algorithms.size(); ++j) {
                     runAlgorithm(algorithmNames[j], algorithms[j], arrangement, i + 1);

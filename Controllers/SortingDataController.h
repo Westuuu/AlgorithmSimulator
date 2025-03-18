@@ -30,8 +30,8 @@ public:
         delete[] testData;
     }
 
-    void generateRandomData() {
-        GenerateData<T>::generateRandom(originalData, arraySize, maxValue);
+    void generateData(DataArrangement arrangement) {
+        GenerateData<T>::generateData(arrangement, originalData, arraySize, maxValue);
         std::cout << "Random data generated" << std::endl;
     }
 

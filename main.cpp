@@ -10,7 +10,7 @@
 using namespace std;
 
 int main() {
-    const int ARRAY_SIZE = 10000;
+    const int ARRAY_SIZE = 1000;
     const int ITERATIONS = 5;
     const int MAX_VALUE = ARRAY_SIZE;
 
@@ -22,8 +22,8 @@ int main() {
     simulationController.registerAlgorithm("Insertion Sort", InsertionSort<int>::sort);
     simulationController.registerAlgorithm("Heap Sort", HeapSort<int>::sort);
 
-    // Set number of iterations (optional if you want to change the default)
-    // simulationController.ITERATIONS = ITERATIONS;  // You'll need to make ITERATIONS public or add a setter
+
+    // simulationController.ITERATIONS = ITERATIONS;
 
     // Run the simulation
     cout << "Running simulation with " << ARRAY_SIZE << " elements..." << endl;
@@ -33,8 +33,7 @@ int main() {
     cout << "\nSimulation Results:" << endl;
     resultsController.printResults();
 
-    // Optional: Export results to CSV
-    // resultsController.exportToCSV("sorting_results.csv");
+    // resultsController.saveResultsToCSV("sorting_results.csv");
 
     return 0;
 }
