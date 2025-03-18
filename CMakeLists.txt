@@ -9,10 +9,10 @@ add_executable(Aizo1 main.cpp
         Data/GenerateData.h
         SortingAlgorithms/ShellSort.h
         Controllers/SortingDataController.h
-        Controllers/AlgorithmController.h
         Data/DataArrangement.h
         Controllers/ResultsController.cpp
         Controllers/ResultsController.h
-        Controllers/SimulationController.cpp
         Controllers/SimulationController.h
+        Data/PivotStrategy.h
+        Data/GapStrategy.h
 )

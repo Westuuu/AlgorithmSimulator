@@ -7,6 +7,7 @@
 
 #include "iostream"
 #include "../Data/GenerateData.h"
+#include "../Data/DataArrangement.h"
 
 template<typename T>
 
@@ -16,6 +17,7 @@ private:
     T *testData;
     int arraySize;
     int maxValue;
+    DataArrangement dataArrangement;
 
 public:
     SortingDataController(int arraySize, int maxValue) : arraySize(arraySize), maxValue(maxValue) {
@@ -48,7 +50,11 @@ public:
         return true;
     }
 
-    T getTestData() {
+    void setDataArrangement(DataArrangement &arrangement) {
+        dataArrangement = arrangement;
+    }
+
+    T *getTestData() {
         return testData;
     }
 

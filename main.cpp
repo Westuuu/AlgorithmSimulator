@@ -4,53 +4,37 @@
 #include "Data/GenerateData.h"
 #include "Controllers/SortingDataController.h"
 #include "SortingAlgorithms/ShellSort.h"
+#include "Controllers/ResultsController.h"
+#include "Controllers/SimulationController.h"
 
 using namespace std;
 
 int main() {
-    int ARRAY_SIZE = 50000;
-    int MAX_SIZE = ARRAY_SIZE;
-    auto *arr = new int[ARRAY_SIZE];
-    GenerateData<int>::generateRandom(arr, ARRAY_SIZE, MAX_SIZE);
+    const int ARRAY_SIZE = 10000;
+    const int ITERATIONS = 5;
+    const int MAX_VALUE = ARRAY_SIZE;
 
-    auto *darr = new double[ARRAY_SIZE];
-    GenerateData<double>::generateRandom(darr, ARRAY_SIZE, MAX_SIZE);
+    ResultsController resultsController;
+    SortingDataController<int> dataController(ARRAY_SIZE, MAX_VALUE);
+    SimulationController<int> simulationController(dataController, resultsController);
 
-    SortingDataController<int> dataManagerINT(ARRAY_SIZE, MAX_SIZE);
-    SortingDataController<double> dataManagerDouble(ARRAY_SIZE, MAX_SIZE);
+    // Register sorting algorithms
+    simulationController.registerAlgorithm("Insertion Sort", InsertionSort<int>::sort);
+    simulationController.registerAlgorithm("Heap Sort", HeapSort<int>::sort);
 
-    HeapSort<int>::sort(arr, ARRAY_SIZE);
+    // Set number of iterations (optional if you want to change the default)
+    // simulationController.ITERATIONS = ITERATIONS;  // You'll need to make ITERATIONS public or add a setter
 
-    bool isHeapSorted = dataManagerINT.checkIfSortedASC(arr, ARRAY_SIZE);
-    if (isHeapSorted) {
-        cout << "Heap sort finished" << endl;
-    } else {
-        cout << "Data is not sorted, used sorting method: HeapSort" << endl;
-    }
+    // Run the simulation
+    cout << "Running simulation with " << ARRAY_SIZE << " elements..." << endl;
+    simulationController.runSimulation();
 
-    cout << endl;
+    // Display results
+    cout << "\nSimulation Results:" << endl;
+    resultsController.printResults();
 
-    InsertionSort<double>::sort(darr, ARRAY_SIZE);
-    bool isInsertionSorted = dataManagerDouble.checkIfSortedASC(darr, ARRAY_SIZE);
-    if (isInsertionSorted) {
-        cout << "Insertion sort finished" << endl;
-    } else {
-        cout << "Data is not sorted, used sorting method: InsertionSort" << endl;
-    }
-
-    cout << endl;
-
-//    ShellSort<int>::sort(data, ARRAY_SIZE);
-//    bool isShellSorted = dataManagerINT.checkIfSortedASC(data, ARRAY_SIZE);
-//    if (isShellSorted) {
-//        cout << "Shell sort finished" << endl;
-//    } else {
-//        cout << "Data is not sorted, used sorting method: Shell" << endl;
-//    }
-
-
-    delete[] arr;
-    delete[] darr;
+    // Optional: Export results to CSV
+    // resultsController.exportToCSV("sorting_results.csv");
 
     return 0;
 }

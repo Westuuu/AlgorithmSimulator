@@ -61,12 +61,6 @@ build CMakeFiles/Aizo1.dir/Controllers/ResultsController.cpp.o: CXX_COMPILER__Ai
   OBJECT_DIR = CMakeFiles/Aizo1.dir
   OBJECT_FILE_DIR = CMakeFiles/Aizo1.dir/Controllers
 
-build CMakeFiles/Aizo1.dir/Controllers/SimulationController.cpp.o: CXX_COMPILER__Aizo1_unscanned_Debug /Users/adam/CLionProjects/Aizo1/Controllers/SimulationController.cpp || cmake_object_order_depends_target_Aizo1
-  DEP_FILE = CMakeFiles/Aizo1.dir/Controllers/SimulationController.cpp.o.d
-  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk -fcolor-diagnostics
-  OBJECT_DIR = CMakeFiles/Aizo1.dir
-  OBJECT_FILE_DIR = CMakeFiles/Aizo1.dir/Controllers
-
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Aizo1
@@ -75,7 +69,7 @@ build CMakeFiles/Aizo1.dir/Controllers/SimulationController.cpp.o: CXX_COMPILER_
 #############################################
 # Link the executable Aizo1
 
-build Aizo1: CXX_EXECUTABLE_LINKER__Aizo1_Debug CMakeFiles/Aizo1.dir/main.cpp.o CMakeFiles/Aizo1.dir/Controllers/ResultsController.cpp.o CMakeFiles/Aizo1.dir/Controllers/SimulationController.cpp.o
+build Aizo1: CXX_EXECUTABLE_LINKER__Aizo1_Debug CMakeFiles/Aizo1.dir/main.cpp.o CMakeFiles/Aizo1.dir/Controllers/ResultsController.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk
   OBJECT_DIR = CMakeFiles/Aizo1.dir
   POST_BUILD = :

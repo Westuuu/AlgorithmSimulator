@@ -14,6 +14,7 @@ struct SortingResult {
     int runNumber;
     double executionTimeMs;
     bool sortedCorrectly;
+    std::string dataType;
 };
 
 class ResultsController {
@@ -21,9 +22,15 @@ private:
     std::vector<SortingResult> results;
 
 public:
-    void addResult(const SortingResult& result);
-    void saveResultsToCSV(const std::string& filename);
-    static std::string arrangementToString(const DataArrangement& arrangement);
+    void addResult(const SortingResult &result);
+
+    void saveResultsToCSV(const std::string &filename);
+
+    void saveResultsByAlgorithm(const std::string &directory);
+
+    void printResults();
+
+    static std::string arrangementToString(const DataArrangement &arrangement);
 };
 
 #endif //AIZO1_RESULTSCONTROLLER_H
