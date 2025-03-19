@@ -26,7 +26,7 @@ void ResultsController::saveResultsToCSV(const std::string &filename) {
         file << result.algorithmName << ","
              << arrangementToString(result.arrangement) << ","
              << result.runNumber << ","
-             << std::fixed << std::setprecision(8) << result.executionTimeMs << ","
+             << std::fixed << std::setprecision(4) << result.executionTimeMs << ","
              << (result.sortedCorrectly ? "true" : "false") << ","
              << result.dataType << std::endl;
     }
@@ -72,17 +72,17 @@ void ResultsController::saveResultsByAlgorithm(const std::string &directory) {
 
 void ResultsController::printResults() {
     std::cout << std::left
-              << std::setw(20) << "Algorithm"
+              << std::setw(25) << "Algorithm"
               << std::setw(25) << "Arrangement"
-              << std::setw(10) << "Run"
-              << std::setw(20) << "Time (ms)"
-              << std::setw(20) << "Sorted"
+              << std::setw(15) << "Run"
+              << std::setw(25) << "Time (ms)"
+              << std::setw(25) << "Sorted"
               << "Data Type" << std::endl;
     std::cout << std::string(115, '-') << std::endl;
 
     for (const auto &result : results) {
         std::cout << std::left
-                  << std::setw(20) << result.algorithmName
+                  << std::setw(25) << result.algorithmName
                   << std::setw(25) << arrangementToString(result.arrangement)
                   << std::setw(10) << result.runNumber
                   << std::setw(20) << std::fixed << std::setprecision(8) << result.executionTimeMs

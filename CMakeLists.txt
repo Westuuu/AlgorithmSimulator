@@ -15,4 +15,5 @@ add_executable(Aizo1 main.cpp
         Controllers/SimulationController.h
         Data/PivotStrategy.h
         Data/GapStrategy.h
+        SortingAlgorithms/Quicksort.h
 )

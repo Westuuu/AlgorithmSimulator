@@ -1,22 +1,7 @@
 # ninja log v5
-4	324	1742209528454415396	CMakeFiles/Aizo1.dir/main.cpp.o	690bdd9c801cfc48
-324	360	1742209528492579471	Aizo1	5458025757498c55
 5	542	1742209055179538196	CMakeFiles/Aizo1.dir/Controllers/SimulationController.cpp.o	71535c2c8d26bbe1
-4	665	1742209055305033870	CMakeFiles/Aizo1.dir/Controllers/ResultsController.cpp.o	84767cb0e4e8e696
+7	561	1742403825634248940	CMakeFiles/Aizo1.dir/Controllers/ResultsController.cpp.o	84767cb0e4e8e696
+500	540	1742404342587433271	Aizo1	fb9cbdc263460a95
+4	500	1742404342545704011	CMakeFiles/Aizo1.dir/main.cpp.o	690bdd9c801cfc48
 4	301	1742150254994706340	CMakeFiles/Aizo1.dir/Data/ResultsManager.cpp.o	b79669c1f861cb29
-4	522	1742327030992482743	CMakeFiles/Aizo1.dir/Controllers/ResultsController.cpp.o	84767cb0e4e8e696
-5	541	1742327135889305861	CMakeFiles/Aizo1.dir/main.cpp.o	690bdd9c801cfc48
-6	497	1742327194998735124	CMakeFiles/Aizo1.dir/Controllers/ResultsController.cpp.o	84767cb0e4e8e696
-6	510	1742327195011160509	CMakeFiles/Aizo1.dir/main.cpp.o	690bdd9c801cfc48
-510	558	1742327195063487891	Aizo1	fb9cbdc263460a95
-4	631	1742327293649021019	CMakeFiles/Aizo1.dir/Controllers/ResultsController.cpp.o	84767cb0e4e8e696
-4	635	1742327293655367379	CMakeFiles/Aizo1.dir/main.cpp.o	690bdd9c801cfc48
-635	678	1742327293701592611	Aizo1	fb9cbdc263460a95
-4	576	1742327425786044826	CMakeFiles/Aizo1.dir/main.cpp.o	690bdd9c801cfc48
-576	621	1742327425833825398	Aizo1	fb9cbdc263460a95
-7	741	1742328048293701812	CMakeFiles/Aizo1.dir/main.cpp.o	690bdd9c801cfc48
-742	855	1742328048412274967	Aizo1	fb9cbdc263460a95
-4	451	1742328070102343472	CMakeFiles/Aizo1.dir/main.cpp.o	690bdd9c801cfc48
-451	498	1742328070152400846	Aizo1	fb9cbdc263460a95
-3	433	1742328128805834816	CMakeFiles/Aizo1.dir/main.cpp.o	690bdd9c801cfc48
-434	474	1742328128847905450	Aizo1	fb9cbdc263460a95
+8	526	1742403629206620847	CMakeFiles/Aizo1.dir/SortingAlgorithms/Shellsort.cpp.o	2e9a593aab04fbb2

@@ -10,7 +10,7 @@
 using namespace std;
 
 int main() {
-    const int ARRAY_SIZE = 1000;
+    const int ARRAY_SIZE = 5000;
     const int ITERATIONS = 5;
     const int MAX_VALUE = ARRAY_SIZE;
 
@@ -21,6 +21,12 @@ int main() {
     // Register sorting algorithms
     simulationController.registerAlgorithm("Insertion Sort", InsertionSort<int>::sort);
     simulationController.registerAlgorithm("Heap Sort", HeapSort<int>::sort);
+    simulationController.registerAlgorithm("Shellsort - Sedgewick", [](int *arr, int n) {
+        ShellSort<int>::sort(arr, n, GapStrategy::SEDGEWICK);
+    });
+    simulationController.registerAlgorithm("Shellsort - Shell", [](int *arr, int n) {
+        ShellSort<int>::sort(arr, n, GapStrategy::SHELL);
+    });
 
 
     // simulationController.ITERATIONS = ITERATIONS;

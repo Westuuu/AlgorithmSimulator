@@ -6,7 +6,8 @@
 #define AIZO1_GAPSTRATEGY_H
 
 enum class GapStrategy {
-    SHELL
+    SHELL,
+    SEDGEWICK
 };
 
 #endif //AIZO1_GAPSTRATEGY_H
