@@ -9,14 +9,14 @@
 #include <string>
 #include <map>
 #include "ResultsController.h"
-#include "SortingDataController.h"
+#include "DataController.h"
 
 
 template<typename T>
 class SimulationController {
 private:
-    int ITERATIONS = 5;
-    SortingDataController<T> &dataManager;
+    int ITERATIONS = 2;
+    DataController<T> &dataManager;
     ResultsController &resultsController;
     std::vector<std::function<void(T *, int)>> algorithms;
     std::vector<std::string> algorithmNames;
@@ -34,7 +34,7 @@ private:
     }
 
 public:
-    SimulationController(SortingDataController<T> &dataManager, ResultsController &resultsController)
+    SimulationController(DataController<T> &dataManager, ResultsController &resultsController)
             : dataManager(dataManager), resultsController(resultsController) {}
 
 
@@ -60,6 +60,7 @@ public:
         result.executionTimeMs = executionTime;
         result.sortedCorrectly = sortedCorrectly;
         result.dataType = typeid(T).name();
+        result.ArraySize = dataManager.getArraySize();
 
         resultsController.addResult(result);
     }

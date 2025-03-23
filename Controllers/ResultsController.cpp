@@ -20,7 +20,7 @@ void ResultsController::saveResultsToCSV(const std::string &filename) {
         return;
     }
 
-    file << "Algorithm,Arrangement,RunNumber,ExecutionTime(ms),SortedCorrectly,DataType" << std::endl;
+    file << "Algorithm,Arrangement,RunNumber,ExecutionTime(ms),SortedCorrectly,DataType,ArraySize" << std::endl;
 
     for (const auto &result: results) {
         file << result.algorithmName << ","
@@ -28,7 +28,8 @@ void ResultsController::saveResultsToCSV(const std::string &filename) {
              << result.runNumber << ","
              << std::fixed << std::setprecision(4) << result.executionTimeMs << ","
              << (result.sortedCorrectly ? "true" : "false") << ","
-             << result.dataType << std::endl;
+             << result.dataType << ","
+             << result.ArraySize << std::endl;
     }
 
     file.close();
@@ -55,7 +56,7 @@ void ResultsController::saveResultsByAlgorithm(const std::string &directory) {
             continue;
         }
 
-        file << "Algorithm,Arrangement,Run,Time(ms),Sorted Correctly,DataType\n";
+        file << "Algorithm,Arrangement,Run,Time(ms),Sorted Correctly,DataType,ArraySize\n";
 
         for (const auto &result: algorithmResults) {
             file << result.algorithmName << ","
@@ -63,7 +64,8 @@ void ResultsController::saveResultsByAlgorithm(const std::string &directory) {
                  << result.runNumber << ","
                  << result.executionTimeMs << ","
                  << (result.sortedCorrectly ? "Yes" : "No") << ","
-                 << result.dataType << "\n";
+                 << result.dataType << ","
+                 << result.ArraySize << "\n";
         }
 
         file.close();
@@ -75,19 +77,21 @@ void ResultsController::printResults() {
               << std::setw(25) << "Algorithm"
               << std::setw(25) << "Arrangement"
               << std::setw(15) << "Run"
-              << std::setw(25) << "Time (ms)"
+              << std::setw(20) << "Time (ms)"
               << std::setw(25) << "Sorted"
-              << "Data Type" << std::endl;
-    std::cout << std::string(115, '-') << std::endl;
+              << std::setw(15) << "Data Type"
+              << "Array Size" << std::endl;
+    std::cout << std::string(130, '-') << std::endl;
 
     for (const auto &result : results) {
         std::cout << std::left
                   << std::setw(25) << result.algorithmName
                   << std::setw(25) << arrangementToString(result.arrangement)
-                  << std::setw(10) << result.runNumber
+                  << std::setw(15) << result.runNumber
                   << std::setw(20) << std::fixed << std::setprecision(8) << result.executionTimeMs
-                  << std::setw(20) << (result.sortedCorrectly ? "Yes" : "No")
-                  << result.dataType << std::endl;
+                  << std::setw(25) << (result.sortedCorrectly ? "Yes" : "No")
+                  << std::setw(15) << result.dataType
+                  << result.ArraySize << std::endl;
     }
 }
 

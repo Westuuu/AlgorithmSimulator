@@ -12,7 +12,7 @@
 template<typename T>
 class ShellSort {
 private:
-    static vector<int> computeTerm(int ArraySize) {
+    static vector<int> computeSedgewickTerms(int ArraySize) {
         std::vector<int> sedgewickTerms;
         int k = 1;
         sedgewickTerms.push_back(1);
@@ -48,8 +48,7 @@ public:
                 }
             }
             case GapStrategy::SEDGEWICK: {
-                std::vector<int> sedgewickTerms = computeTerm(n);
-
+                std::vector<int> sedgewickTerms = computeSedgewickTerms(n);
 
                 for (int idx = sedgewickTerms.size() - 1; idx >= 0; idx--) {
                     int gap = sedgewickTerms[idx];

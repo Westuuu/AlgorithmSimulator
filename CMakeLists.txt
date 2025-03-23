@@ -8,7 +8,7 @@ add_executable(Aizo1 main.cpp
         SortingAlgorithms/HeapSort.h
         Data/GenerateData.h
         SortingAlgorithms/ShellSort.h
-        Controllers/SortingDataController.h
+        Controllers/DataController.h
         Data/DataArrangement.h
         Controllers/ResultsController.cpp
         Controllers/ResultsController.h

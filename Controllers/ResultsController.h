@@ -15,6 +15,7 @@ struct SortingResult {
     double executionTimeMs;
     bool sortedCorrectly;
     std::string dataType;
+    int ArraySize;
 };
 
 class ResultsController {

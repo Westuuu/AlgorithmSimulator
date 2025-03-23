@@ -2,8 +2,8 @@
 // Created by Adam on 15/03/2025.
 //
 
-#ifndef AIZO1_SORTINGDATACONTROLLER_H
-#define AIZO1_SORTINGDATACONTROLLER_H
+#ifndef AIZO1_DATACONTROLLER_H
+#define AIZO1_DATACONTROLLER_H
 
 #include "iostream"
 #include "../Data/GenerateData.h"
@@ -11,7 +11,7 @@
 
 template<typename T>
 
-class SortingDataController {
+class DataController {
 private:
     T *originalData;
     T *testData;
@@ -20,19 +20,19 @@ private:
     DataArrangement dataArrangement;
 
 public:
-    SortingDataController(int arraySize, int maxValue) : arraySize(arraySize), maxValue(maxValue) {
+    DataController(int arraySize, int maxValue) : arraySize(arraySize), maxValue(maxValue) {
         originalData = new T[arraySize];
         testData = new T[arraySize];
     }
 
-    ~SortingDataController() {
+    ~DataController() {
         delete[] originalData;
         delete[] testData;
     }
 
     void generateData(DataArrangement arrangement) {
         GenerateData<T>::generateData(arrangement, originalData, arraySize, maxValue);
-        std::cout << "Random data generated" << std::endl;
+        resetTestData();
     }
 
     void resetTestData() {
@@ -64,4 +64,4 @@ public:
 };
 
 
-#endif //AIZO1_SORTINGDATACONTROLLER_H
+#endif //AIZO1_DATACONTROLLER_H
