@@ -51,18 +51,6 @@ private:
 
         std::swap(arr[i], arr[rightIndex]);
         return i;
-//
-//        std::swap(arr[pivotIndex], arr[rightIndex]);
-//        int storedIndex = leftIndex;
-//
-//        for (int i = leftIndex; i < rightIndex; i++) {
-//            if (arr[i] < pivotValue) {
-//                std::swap(arr[i], arr[storedIndex]);
-//                storedIndex++;
-//            }
-//        }
-//        std::swap(arr[storedIndex], arr[rightIndex]);
-//        return storedIndex;
     }
 
     static void sortHelper(T arr[], int leftIndex, int rightIndex, PivotStrategy pivotStrategy) {

@@ -10,8 +10,9 @@
 
 using namespace std;
 
+
 int main() {
-    const int ARRAY_SIZE = 100000;
+    const int ARRAY_SIZE = 20;
     const int ITERATIONS = 5;
     const int MAX_VALUE = ARRAY_SIZE;
 
@@ -22,20 +23,33 @@ int main() {
 
     // Register sorting algorithms
 //    simulationController.registerAlgorithm("Insertion Sort", InsertionSort<int>::sort);
-    simulationController.registerAlgorithm("Heap Sort", HeapSort<int>::sort);
+//    simulationController.registerAlgorithm("Heap Sort", HeapSort<int>::sort);
     simulationController.registerAlgorithm("Shellsort - Sedgewick", [](int *arr, int n) {
         ShellSort<int>::sort(arr, n, GapStrategy::SEDGEWICK);
     });
-//    simulationController.registerAlgorithm("Shellsort - Shell", [](int *arr, int n) {
-//        ShellSort<int>::sort(arr, n, GapStrategy::SHELL);
-//    });
+    simulationController.registerAlgorithm("Shellsort - Shell", [](int *arr, int n) {
+        ShellSort<int>::sort(arr, n, GapStrategy::SHELL);
+    });
 
 //    simulationController.registerAlgorithm("Heap sort - double", HeapSort<double>::sort);
 
     simulationController.registerAlgorithm("Quicksort - Middle", [](int *arr, int n) {
         Quicksort<int>::sort(arr, n, PivotStrategy::MIDDLE);
     });
+//
+//    simulationController.registerAlgorithm("Quicksort - Left", [](int *arr, int n) {
+//        Quicksort<int>::sort(arr, n, PivotStrategy::LEFT);
+//    });
+//    simulationController.registerAlgorithm("Quicksort - Right", [](int *arr, int n) {
+//        Quicksort<int>::sort(arr, n, PivotStrategy::RIGHT);
+//    });
+//    simulationController.registerAlgorithm("Quicksort - Random", [](int *arr, int n) {
+//        Quicksort<int>::sort(arr, n, PivotStrategy::RANDOM);
+//    });
 
+    simulationController.registerAlgorithm("STL Sort", [](int *arr, int n) {
+        std::sort(arr, arr + n);
+    });
 
 
     // simulationController.ITERATIONS = ITERATIONS;
@@ -49,6 +63,8 @@ int main() {
     resultsController.printResults();
 
     // resultsController.saveResultsToCSV("sorting_results.csv");
+
+
 
     return 0;
 }

@@ -33,6 +33,35 @@ private:
         return duration.count();
     }
 
+    void printArray(T *arr, int size) {
+        const int maxDisplayElements = 20;
+        int displayCount = std::min(size, maxDisplayElements);
+
+        for (int i = 0; i < displayCount; i++) {
+            std::cout << arr[i] << " ";
+        }
+
+        if (size > maxDisplayElements) {
+            std::cout << "... (" << (size - maxDisplayElements) << " more elements)";
+        }
+        std::cout << std::endl;
+    }
+
+    std::string getArrangementName(DataArrangement arrangement) {
+        switch (arrangement) {
+            case DataArrangement::RANDOM:
+                return "Random";
+            case DataArrangement::FULLY_SORTED_ASCENDING:
+                return "Ascending";
+            case DataArrangement::FULLY_SORTED_DESCENDING:
+                return "Descending";
+            case DataArrangement::PARTIALLY_SORTED_33:
+                return "33% Sorted";
+            case DataArrangement::PARTIALLY_SORTED_66:
+                return "66% Sorted";
+        }
+    }
+
 public:
     SimulationController(DataController<T> &dataManager, ResultsController &resultsController)
             : dataManager(dataManager), resultsController(resultsController) {}
@@ -47,11 +76,23 @@ public:
                       DataArrangement dataArrangement, int runNumber) {
         dataManager.resetTestData();
 
-        double executionTime = measureExecutionTime(testedAlgorithm);
+        std::cout << "Before sorting with " << name << " (run " << runNumber << ", "
+                  << getArrangementName(dataArrangement) << "):" << std::endl;
 
         T *data = dataManager.getTestData();
         int arraySize = dataManager.getArraySize();
+        printArray(data, arraySize);
+
+        double executionTime = measureExecutionTime(testedAlgorithm);
+
         bool sortedCorrectly = dataManager.checkIfSortedASC(data, arraySize);
+
+        std::cout << "After sorting with " << name << " (run " << runNumber << ", "
+                  << getArrangementName(dataArrangement) << "):" << std::endl;
+        printArray(data, arraySize);
+        std::cout << "Sorted correctly: " << (sortedCorrectly ? "Yes" : "No") << std::endl;
+        std::cout << "Execution time: " << executionTime << " ms" << std::endl << std::endl;
+
 
         SortingResult result;
         result.algorithmName = name;
