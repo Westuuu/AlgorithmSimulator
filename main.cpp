@@ -12,51 +12,63 @@ using namespace std;
 
 
 int main() {
-    const int ARRAY_SIZE = 20;
-    const int ITERATIONS = 5;
-    const int MAX_VALUE = ARRAY_SIZE;
+    const long long ARRAY_SIZE = 10;
+    const int ITERATIONS = 2;
+    const long long MAX_VALUE = ARRAY_SIZE;
 
     ResultsController resultsController;
-    DataController<int> dataController(ARRAY_SIZE, MAX_VALUE);
-    SimulationController<int> simulationController(dataController, resultsController);
+    {
+        DataController<int> dataController(ARRAY_SIZE, MAX_VALUE);
+        SimulationController<int> intSimulationController(dataController, resultsController, ITERATIONS);
 
-
-    // Register sorting algorithms
-//    simulationController.registerAlgorithm("Insertion Sort", InsertionSort<int>::sort);
-//    simulationController.registerAlgorithm("Heap Sort", HeapSort<int>::sort);
-    simulationController.registerAlgorithm("Shellsort - Sedgewick", [](int *arr, int n) {
-        ShellSort<int>::sort(arr, n, GapStrategy::SEDGEWICK);
-    });
-    simulationController.registerAlgorithm("Shellsort - Shell", [](int *arr, int n) {
-        ShellSort<int>::sort(arr, n, GapStrategy::SHELL);
-    });
-
-//    simulationController.registerAlgorithm("Heap sort - double", HeapSort<double>::sort);
-
-    simulationController.registerAlgorithm("Quicksort - Middle", [](int *arr, int n) {
-        Quicksort<int>::sort(arr, n, PivotStrategy::MIDDLE);
-    });
+        // Register sorting algorithms
+//        intSimulationController.registerAlgorithm("Insertion Sort", InsertionSort<int>::sort);
+//        intSimulationController.registerAlgorithm("Heap Sort", HeapSort<int>::sort);
+        intSimulationController.registerAlgorithm("Shellsort - Sedgewick", [](int *arr, int n) {
+            ShellSort<int>::sort(arr, n, GapStrategy::SEDGEWICK);
+        });
+//        intSimulationController.registerAlgorithm("Shellsort - Shell", [](int *arr, int n) {
+//            ShellSort<int>::sort(arr, n, GapStrategy::SHELL);
+//        });
 //
-//    simulationController.registerAlgorithm("Quicksort - Left", [](int *arr, int n) {
-//        Quicksort<int>::sort(arr, n, PivotStrategy::LEFT);
-//    });
-//    simulationController.registerAlgorithm("Quicksort - Right", [](int *arr, int n) {
-//        Quicksort<int>::sort(arr, n, PivotStrategy::RIGHT);
-//    });
-//    simulationController.registerAlgorithm("Quicksort - Random", [](int *arr, int n) {
-//        Quicksort<int>::sort(arr, n, PivotStrategy::RANDOM);
-//    });
+//        intSimulationController.registerAlgorithm("Quicksort - Middle", [](int *arr, int n) {
+//            Quicksort<int>::sort(arr, n, PivotStrategy::MIDDLE);
+//        });
+//
+//        intSimulationController.registerAlgorithm("Quicksort - Left", [](int *arr, int n) {
+//            Quicksort<int>::sort(arr, n, PivotStrategy::LEFT);
+//        });
+//        intSimulationController.registerAlgorithm("Quicksort - Right", [](int *arr, int n) {
+//            Quicksort<int>::sort(arr, n, PivotStrategy::RIGHT);
+//        });
+//        intSimulationController.registerAlgorithm("Quicksort - Random", [](int *arr, int n) {
+//            Quicksort<int>::sort(arr, n, PivotStrategy::RANDOM);
+//        });
 
-    simulationController.registerAlgorithm("STL Sort", [](int *arr, int n) {
-        std::sort(arr, arr + n);
-    });
+        intSimulationController.registerAlgorithm("STL Sort", [](int *arr, int n) {
+            std::sort(arr, arr + n);
+        });
+
+        // Run the simulation for ints
+        cout << "Running simulation with " << ARRAY_SIZE << " elements..." << endl;
+        intSimulationController.runSimulation();
+
+    }
+
+    {
+        DataController<double> doubleDataController(ARRAY_SIZE, MAX_VALUE);
+        SimulationController<double> doubleSimulationController(doubleDataController, resultsController, ITERATIONS);
+
+        doubleSimulationController.registerAlgorithm("Heap sort - double", HeapSort<double>::sort);
+
+        // Run the simulation for doubles
+        doubleSimulationController.runSimulation();
+    }
 
 
-    // simulationController.ITERATIONS = ITERATIONS;
+    DataController<float> floatDataController(ARRAY_SIZE, MAX_VALUE);
+    SimulationController<float> floatSimulationController(floatDataController, resultsController, ITERATIONS);
 
-    // Run the simulation
-    cout << "Running simulation with " << ARRAY_SIZE << " elements..." << endl;
-    simulationController.runSimulation();
 
     // Display results
     cout << "\nSimulation Results:" << endl;

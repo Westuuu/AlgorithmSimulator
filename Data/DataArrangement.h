@@ -21,6 +21,6 @@ inline std::vector<DataArrangement> getDataArrangements() {
             DataArrangement::PARTIALLY_SORTED_66,
             DataArrangement::RANDOM
     };
-};
+}
 
 #endif //AIZO1_DATAARRANGEMENT_H

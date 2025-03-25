@@ -10,7 +10,6 @@
 #include "../Data/DataArrangement.h"
 
 template<typename T>
-
 class DataController {
 private:
     T *originalData;
@@ -31,7 +30,6 @@ public:
     }
 
     void generateData(DataArrangement arrangement) {
-        setDataArrangement(arrangement);
         GenerateData<T>::generateData(arrangement, originalData, arraySize, maxValue);
         resetTestData();
     }

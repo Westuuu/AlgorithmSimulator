@@ -15,7 +15,7 @@
 template<typename T>
 class SimulationController {
 private:
-    int ITERATIONS = 2;
+    int ITERATIONS;
     DataController<T> &dataManager;
     ResultsController &resultsController;
     std::vector<std::function<void(T *, int)>> algorithms;
@@ -33,7 +33,7 @@ private:
         return duration.count();
     }
 
-    void printArray(T *arr, int size) {
+    void printArray(T arr[], int size) {
         const int maxDisplayElements = 20;
         int displayCount = std::min(size, maxDisplayElements);
 
@@ -63,8 +63,8 @@ private:
     }
 
 public:
-    SimulationController(DataController<T> &dataManager, ResultsController &resultsController)
-            : dataManager(dataManager), resultsController(resultsController) {}
+    SimulationController(DataController<T> &dataManager, ResultsController &resultsController, int iterations)
+            : dataManager(dataManager), resultsController(resultsController), ITERATIONS(iterations) {}
 
 
     void registerAlgorithm(const std::string &name, std::function<void(T *, int)> algorithm) {

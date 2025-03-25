@@ -66,7 +66,7 @@ public:
     }
 
     static void generateData(DataArrangement arrangement, T arr[], int n, T max) {
-        switch(arrangement) {
+        switch (arrangement) {
             case DataArrangement::FULLY_SORTED_ASCENDING:
                 generateFullySortedAscending(arr, n, max);
                 break;
