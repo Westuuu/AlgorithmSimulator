@@ -12,7 +12,7 @@
 template<typename T>
 class ShellSort {
 private:
-    static vector<int> computeSedgewickTerms(int ArraySize) {
+    static std::vector<int> computeSedgewickTerms(int ArraySize) {
         std::vector<int> sedgewickTerms;
         int k = 1;
         sedgewickTerms.push_back(1);

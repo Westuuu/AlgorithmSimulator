@@ -35,16 +35,14 @@ public:
         static_assert(std::is_arithmetic<T>::value, "Generates data only with numeric types");
 
         for (int i = 0; i < n; ++i) {
-            arr[i] = (static_cast<T>(i) * max) / static_cast<T>(n - 1);
-        }
+            arr[i] = static_cast<T>(static_cast<double>(i) * static_cast<double>(max) / static_cast<double>(n - 1));        }
     }
 
     static void generateFullySortedDescending(T arr[], int n, T max) {
         static_assert(std::is_arithmetic<T>::value, "Generates data only with numeric types");
 
         for (int i = 0; i < n; ++i) {
-            arr[i] = (static_cast<T>(n - 1 - i) * max) / static_cast<T>(n - 1);
-        }
+            arr[i] = max - static_cast<T>(static_cast<double>(i) * static_cast<double>(max) / static_cast<double>(n-1));        }
     }
 
     static void generatePartiallySorted33(T arr[], int n, T max) {

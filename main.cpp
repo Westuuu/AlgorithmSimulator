@@ -12,18 +12,18 @@ using namespace std;
 
 
 int main() {
-    const long long ARRAY_SIZE = 10;
-    const int ITERATIONS = 2;
-    const long long MAX_VALUE = ARRAY_SIZE;
+    const int ARRAY_SIZE = 154030;
+    const int ITERATIONS = 1;
+    const int MAX_VALUE = ARRAY_SIZE;
 
     ResultsController resultsController;
     {
-        DataController<int> dataController(ARRAY_SIZE, MAX_VALUE);
-        SimulationController<int> intSimulationController(dataController, resultsController, ITERATIONS);
+        DataController<int> intDataController(ARRAY_SIZE, MAX_VALUE);
+        SimulationController<int> intSimulationController(intDataController, resultsController, ITERATIONS);
 
         // Register sorting algorithms
-//        intSimulationController.registerAlgorithm("Insertion Sort", InsertionSort<int>::sort);
-//        intSimulationController.registerAlgorithm("Heap Sort", HeapSort<int>::sort);
+        intSimulationController.registerAlgorithm("Insertion Sort", InsertionSort<int>::sort);
+        intSimulationController.registerAlgorithm("Heap Sort", HeapSort<int>::sort);
         intSimulationController.registerAlgorithm("Shellsort - Sedgewick", [](int *arr, int n) {
             ShellSort<int>::sort(arr, n, GapStrategy::SEDGEWICK);
         });
@@ -45,9 +45,9 @@ int main() {
 //            Quicksort<int>::sort(arr, n, PivotStrategy::RANDOM);
 //        });
 
-        intSimulationController.registerAlgorithm("STL Sort", [](int *arr, int n) {
-            std::sort(arr, arr + n);
-        });
+//        intSimulationController.registerAlgorithm("STL Sort", [](int *arr, int n) {
+//            std::sort(arr, arr + n);
+//        });
 
         // Run the simulation for ints
         cout << "Running simulation with " << ARRAY_SIZE << " elements..." << endl;
@@ -59,7 +59,7 @@ int main() {
         DataController<double> doubleDataController(ARRAY_SIZE, MAX_VALUE);
         SimulationController<double> doubleSimulationController(doubleDataController, resultsController, ITERATIONS);
 
-        doubleSimulationController.registerAlgorithm("Heap sort - double", HeapSort<double>::sort);
+//        doubleSimulationController.registerAlgorithm("Heap sort - double", HeapSort<double>::sort);
 
         // Run the simulation for doubles
         doubleSimulationController.runSimulation();
