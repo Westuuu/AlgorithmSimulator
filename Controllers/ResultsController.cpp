@@ -7,6 +7,7 @@
 #include <iostream>
 #include <iomanip>
 #include <map>
+#include "filesystem"
 
 void ResultsController::addResult(const SortingResult &result) {
     results.push_back(result);
@@ -38,6 +39,12 @@ void ResultsController::saveResultsToCSV(const std::string &filename) {
 
 
 void ResultsController::saveResultsByAlgorithm(const std::string &directory) {
+    try {
+        std::filesystem::create_directory(directory);
+    } catch (const std::filesystem::filesystem_error &e) {
+        std::cerr << "Error creating directory: " << e.what() << std::endl;
+    }
+
     std::map<std::string, std::vector<SortingResult>> resultsByAlgorithm;
 
     for (const auto &result: results) {
@@ -48,7 +55,10 @@ void ResultsController::saveResultsByAlgorithm(const std::string &directory) {
         const std::string &algorithmName = pair.first;
         const std::vector<SortingResult> &algorithmResults = pair.second;
 
-        std::string filename = directory + "/" + algorithmName + ".csv";
+        std::string filename = directory;
+        filename += "/";
+        filename += algorithmName;
+        filename += ".csv";
 
         std::ofstream file(filename);
         if (!file.is_open()) {
@@ -83,7 +93,7 @@ void ResultsController::printResults() {
               << "Array Size" << std::endl;
     std::cout << std::string(130, '-') << std::endl;
 
-    for (const auto &result : results) {
+    for (const auto &result: results) {
         std::cout << std::left
                   << std::setw(25) << result.algorithmName
                   << std::setw(25) << arrangementToString(result.arrangement)

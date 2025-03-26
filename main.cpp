@@ -12,38 +12,39 @@ using namespace std;
 
 
 int main() {
-    const int ARRAY_SIZE = 154030;
-    const int ITERATIONS = 1;
+    const int ARRAY_SIZE = 15000;
+    const int ITERATIONS = 50;
     const int MAX_VALUE = ARRAY_SIZE;
 
     ResultsController resultsController;
     {
         DataController<int> intDataController(ARRAY_SIZE, MAX_VALUE);
         SimulationController<int> intSimulationController(intDataController, resultsController, ITERATIONS);
+        intSimulationController.setPrintResultFlag(false);
 
         // Register sorting algorithms
         intSimulationController.registerAlgorithm("Insertion Sort", InsertionSort<int>::sort);
-        intSimulationController.registerAlgorithm("Heap Sort", HeapSort<int>::sort);
+        intSimulationController.registerAlgorithm("HeapSort", HeapSort<int>::sort);
         intSimulationController.registerAlgorithm("Shellsort - Sedgewick", [](int *arr, int n) {
             ShellSort<int>::sort(arr, n, GapStrategy::SEDGEWICK);
         });
-//        intSimulationController.registerAlgorithm("Shellsort - Shell", [](int *arr, int n) {
-//            ShellSort<int>::sort(arr, n, GapStrategy::SHELL);
-//        });
-//
-//        intSimulationController.registerAlgorithm("Quicksort - Middle", [](int *arr, int n) {
-//            Quicksort<int>::sort(arr, n, PivotStrategy::MIDDLE);
-//        });
-//
-//        intSimulationController.registerAlgorithm("Quicksort - Left", [](int *arr, int n) {
-//            Quicksort<int>::sort(arr, n, PivotStrategy::LEFT);
-//        });
-//        intSimulationController.registerAlgorithm("Quicksort - Right", [](int *arr, int n) {
-//            Quicksort<int>::sort(arr, n, PivotStrategy::RIGHT);
-//        });
-//        intSimulationController.registerAlgorithm("Quicksort - Random", [](int *arr, int n) {
-//            Quicksort<int>::sort(arr, n, PivotStrategy::RANDOM);
-//        });
+        intSimulationController.registerAlgorithm("Shellsort - Shell", [](int *arr, int n) {
+            ShellSort<int>::sort(arr, n, GapStrategy::SHELL);
+        });
+
+        intSimulationController.registerAlgorithm("Quicksort - Middle", [](int *arr, int n) {
+            Quicksort<int>::sort(arr, n, PivotStrategy::MIDDLE);
+        });
+
+        intSimulationController.registerAlgorithm("Quicksort - Left", [](int *arr, int n) {
+            Quicksort<int>::sort(arr, n, PivotStrategy::LEFT);
+        });
+        intSimulationController.registerAlgorithm("Quicksort - Right", [](int *arr, int n) {
+            Quicksort<int>::sort(arr, n, PivotStrategy::RIGHT);
+        });
+        intSimulationController.registerAlgorithm("Quicksort - Random", [](int *arr, int n) {
+            Quicksort<int>::sort(arr, n, PivotStrategy::RANDOM);
+        });
 
 //        intSimulationController.registerAlgorithm("STL Sort", [](int *arr, int n) {
 //            std::sort(arr, arr + n);

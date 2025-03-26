@@ -20,6 +20,7 @@ private:
     ResultsController &resultsController;
     std::vector<std::function<void(T *, int)>> algorithms;
     std::vector<std::string> algorithmNames;
+    bool PRINTRESULTS;
 
     double measureExecutionTime(std::function<void(T *, int)> algorithm) {
         T *data = dataManager.getTestData();
@@ -76,22 +77,27 @@ public:
                       DataArrangement dataArrangement, int runNumber) {
         dataManager.resetTestData();
 
-        std::cout << "Before sorting with " << name << " (run " << runNumber << ", "
-                  << getArrangementName(dataArrangement) << "):" << std::endl;
 
         T *data = dataManager.getTestData();
         int arraySize = dataManager.getArraySize();
-        printArray(data, arraySize);
+        if (PRINTRESULTS) {
+            std::cout << "Before sorting with " << name << " (run " << runNumber << ", "
+                      << getArrangementName(dataArrangement) << "):" << std::endl;
+            printArray(data, arraySize);
+        }
 
         double executionTime = measureExecutionTime(testedAlgorithm);
 
         bool sortedCorrectly = dataManager.checkIfSortedASC(data, arraySize);
 
-        std::cout << "After sorting with " << name << " (run " << runNumber << ", "
-                  << getArrangementName(dataArrangement) << "):" << std::endl;
-        printArray(data, arraySize);
-        std::cout << "Sorted correctly: " << (sortedCorrectly ? "Yes" : "No") << std::endl;
-        std::cout << "Execution time: " << executionTime << " ms" << std::endl << std::endl;
+
+        if (PRINTRESULTS) {
+            std::cout << "After sorting with " << name << " (run " << runNumber << ", "
+                      << getArrangementName(dataArrangement) << "):" << std::endl;
+            printArray(data, arraySize);
+            std::cout << "Sorted correctly: " << (sortedCorrectly ? "Yes" : "No") << std::endl;
+            std::cout << "Execution time: " << executionTime << " ms" << std::endl << std::endl;
+        }
 
 
         SortingResult result;
@@ -120,6 +126,11 @@ public:
                 }
             }
         }
+        resultsController.saveResultsByAlgorithm("results");
+    }
+
+    void setPrintResultFlag(bool flag) {
+        PRINTRESULTS = flag;
     }
 };
 
