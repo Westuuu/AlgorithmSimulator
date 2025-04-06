@@ -16,6 +16,7 @@ public:
     ConfigManager() = default;
     ConfigManager(const ConfigManager&) = delete;
     ConfigManager& operator=(const ConfigManager&) = delete;
+    ~ConfigManager();
 
     static ConfigManager* getInstance();
 

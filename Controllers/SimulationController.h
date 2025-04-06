@@ -7,7 +7,7 @@
 
 
 #include <string>
-#include <map>
+#include <utility>
 #include "ResultsController.h"
 #include "DataController.h"
 
@@ -18,9 +18,13 @@ private:
     int ITERATIONS;
     DataController<T> &dataManager;
     ResultsController &resultsController;
-    std::vector<std::function<void(T *, int)>> algorithms;
+    std::vector<std::function<void(T *, int)> > algorithms;
     std::vector<std::string> algorithmNames;
     bool PRINTRESULTS = false;
+    bool SAVETOCSV = false;
+    bool TEST_MODE = false;
+    string CSV_DIRECTORY = "results";
+    string TEST_DATA_FILE = "test_data.csv";
 
     double measureExecutionTime(std::function<void(T *, int)> algorithm) {
         T *data = dataManager.getTestData();
@@ -35,7 +39,7 @@ private:
     }
 
     void printArray(T arr[], int size) {
-        constexpr int maxDisplayElements = 50;
+        constexpr int maxDisplayElements = 30;
         int displayCount = std::min(size, maxDisplayElements);
 
         for (int i = 0; i < displayCount; i++) {
@@ -48,7 +52,7 @@ private:
         std::cout << std::endl;
     }
 
-    std::string getArrangementName(DataArrangement arrangement) {
+    std::string getArrangementName(const DataArrangement arrangement) {
         switch (arrangement) {
             case DataArrangement::RANDOM:
                 return "Random";
@@ -60,12 +64,24 @@ private:
                 return "33% Sorted";
             case DataArrangement::PARTIALLY_SORTED_66:
                 return "66% Sorted";
+            default:
+                return "Unknown";
         }
     }
 
 public:
-    SimulationController(DataController<T> &dataManager, ResultsController &resultsController, int iterations)
-            : dataManager(dataManager), resultsController(resultsController), ITERATIONS(iterations) {}
+    SimulationController(DataController<T> &dataManager, ResultsController &resultsController, const int iterations,
+                         bool PRINTRESULTS, bool SAVETOCSV, string CSV_DIRECTORY,
+                         bool TEST_MODE = false, string TEST_DATA_FILE = "test_data.csv") 
+        : ITERATIONS(iterations),
+          dataManager(dataManager),
+          resultsController(resultsController), 
+          PRINTRESULTS(PRINTRESULTS),
+          SAVETOCSV(SAVETOCSV), 
+          CSV_DIRECTORY(std::move(CSV_DIRECTORY)),
+          TEST_MODE(TEST_MODE),
+          TEST_DATA_FILE(std::move(TEST_DATA_FILE)) {
+    }
 
 
     void registerAlgorithm(const std::string &name, std::function<void(T *, int)> algorithm) {
@@ -82,7 +98,7 @@ public:
         int arraySize = dataManager.getArraySize();
         if (PRINTRESULTS) {
             std::cout << "Before sorting with " << name << " (run " << runNumber << ", "
-                      << getArrangementName(dataArrangement) << "):" << std::endl;
+                    << getArrangementName(dataArrangement) << "):" << std::endl;
             printArray(data, arraySize);
         }
 
@@ -93,7 +109,7 @@ public:
 
         if (PRINTRESULTS) {
             std::cout << "After sorting with " << name << " (run " << runNumber << ", "
-                      << getArrangementName(dataArrangement) << "):" << std::endl;
+                    << getArrangementName(dataArrangement) << "):" << std::endl;
             printArray(data, arraySize);
             std::cout << "Sorted correctly: " << (sortedCorrectly ? "Yes" : "No") << std::endl;
             std::cout << "Execution time: " << executionTime << " ms" << std::endl << std::endl;
@@ -113,24 +129,44 @@ public:
     }
 
     void runSimulation() {
-        const std::vector<DataArrangement> dataArrangements = getDataArrangements();
-        int k = 0;
-
-        for (auto arrangement: dataArrangements) {
+        if (TEST_MODE) {
+            if (!dataManager.loadDataFromCSV(TEST_DATA_FILE)) {
+                std::cerr << "Failed to load test data from " << TEST_DATA_FILE << std::endl;
+                return;
+            }
+            
+            std::cout << "Running simulation in TEST_MODE with data from " << TEST_DATA_FILE << std::endl;
+            
+            DataArrangement arrangement = DataArrangement::RANDOM;
             dataManager.setDataArrangement(arrangement);
+            
+            for (int j = 0; j < algorithms.size(); ++j) {
+                runAlgorithm(algorithmNames[j], algorithms[j], arrangement, 1);
+            }
+        }
+        else {
+            const std::vector<DataArrangement> dataArrangements = getDataArrangements();
+            int k = 0;
 
-            for (int i = 0; i < ITERATIONS; ++i) {
-                k++;
-                cout << "Running simulation iteration " << k << "/" << ITERATIONS * dataArrangements.size() << endl;
+            for (auto arrangement: dataArrangements) {
+                dataManager.setDataArrangement(arrangement);
 
-                dataManager.generateData(arrangement);
+                for (int i = 0; i < ITERATIONS; ++i) {
+                    k++;
+                    cout << "Running simulation iteration " << k << "/" << ITERATIONS * dataArrangements.size() << endl;
 
-                for (int j = 0; j < algorithms.size(); ++j) {
-                    runAlgorithm(algorithmNames[j], algorithms[j], arrangement, i + 1);
+                    dataManager.generateData(arrangement);
+
+                    for (int j = 0; j < algorithms.size(); ++j) {
+                        runAlgorithm(algorithmNames[j], algorithms[j], arrangement, i + 1);
+                    }
                 }
             }
         }
-        resultsController.saveResultsByAlgorithm("results");
+        
+        if (SAVETOCSV) {
+            resultsController.saveResultsByAlgorithm(CSV_DIRECTORY);
+        }
     }
 
     void setPrintResultFlag(bool flag) {

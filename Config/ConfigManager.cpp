@@ -89,3 +89,7 @@ bool ConfigManager::getBool(const std::string &key, bool defaultValue) {
     }
     return defaultValue;
 }
+
+ConfigManager::~ConfigManager() {
+    delete instance;
+}

@@ -15,11 +15,11 @@ enum class DataArrangement {
 
 inline std::vector<DataArrangement> getDataArrangements() {
     return {
-            DataArrangement::FULLY_SORTED_ASCENDING,
-            DataArrangement::FULLY_SORTED_DESCENDING,
-            DataArrangement::PARTIALLY_SORTED_33,
-            DataArrangement::PARTIALLY_SORTED_66,
-            DataArrangement::RANDOM
+        DataArrangement::FULLY_SORTED_ASCENDING,
+        DataArrangement::FULLY_SORTED_DESCENDING,
+        DataArrangement::PARTIALLY_SORTED_33,
+        DataArrangement::PARTIALLY_SORTED_66,
+        DataArrangement::RANDOM
     };
 }
 

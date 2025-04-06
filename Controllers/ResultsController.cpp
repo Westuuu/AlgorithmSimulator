@@ -8,6 +8,8 @@
 #include <iomanip>
 #include <map>
 #include "filesystem"
+#include <algorithm>
+#include <cmath>
 
 void ResultsController::addResult(const SortingResult &result) {
     results.push_back(result);
@@ -25,12 +27,12 @@ void ResultsController::saveResultsToCSV(const std::string &filename) {
 
     for (const auto &result: results) {
         file << result.algorithmName << ","
-             << arrangementToString(result.arrangement) << ","
-             << result.runNumber << ","
-             << std::fixed << std::setprecision(4) << result.executionTimeMs << ","
-             << (result.sortedCorrectly ? "true" : "false") << ","
-             << result.dataType << ","
-             << result.ArraySize << std::endl;
+                << arrangementToString(result.arrangement) << ","
+                << result.runNumber << ","
+                << std::fixed << std::setprecision(4) << result.executionTimeMs << ","
+                << (result.sortedCorrectly ? "true" : "false") << ","
+                << result.dataType << ","
+                << result.ArraySize << std::endl;
     }
 
     file.close();
@@ -45,7 +47,7 @@ void ResultsController::saveResultsByAlgorithm(const std::string &directory) {
         std::cerr << "Error creating directory: " << e.what() << std::endl;
     }
 
-    std::map<std::string, std::vector<SortingResult>> resultsByAlgorithm;
+    std::map<std::string, std::vector<SortingResult> > resultsByAlgorithm;
 
     for (const auto &result: results) {
         resultsByAlgorithm[result.algorithmName].push_back(result);
@@ -70,38 +72,39 @@ void ResultsController::saveResultsByAlgorithm(const std::string &directory) {
 
         for (const auto &result: algorithmResults) {
             file << result.algorithmName << ","
-                 << arrangementToString(result.arrangement) << ","
-                 << result.runNumber << ","
-                 << result.executionTimeMs << ","
-                 << (result.sortedCorrectly ? "Yes" : "No") << ","
-                 << result.dataType << ","
-                 << result.ArraySize << "\n";
+                    << arrangementToString(result.arrangement) << ","
+                    << result.runNumber << ","
+                    << result.executionTimeMs << ","
+                    << (result.sortedCorrectly ? "Yes" : "No") << ","
+                    << result.dataType << ","
+                    << result.ArraySize << "\n";
         }
 
         file.close();
     }
 }
 
+
 void ResultsController::printResults() {
     std::cout << std::left
-              << std::setw(25) << "Algorithm"
-              << std::setw(25) << "Arrangement"
-              << std::setw(15) << "Run"
-              << std::setw(20) << "Time (ms)"
-              << std::setw(25) << "Sorted"
-              << std::setw(15) << "Data Type"
-              << "Array Size" << std::endl;
-    std::cout << std::string(130, '-') << std::endl;
+            << std::setw(25) << "Algorithm"
+            << std::setw(25) << "Arrangement"
+            << std::setw(15) << "Run"
+            << std::setw(20) << "Time (ms)"
+            << std::setw(25) << "Sorted"
+            << std::setw(15) << "Data Type"
+            << std::setw(15) << "Array Size" << std::endl;
+    std::cout << std::string(150, '-') << std::endl;
 
     for (const auto &result: results) {
         std::cout << std::left
-                  << std::setw(35) << result.algorithmName
-                  << std::setw(25) << arrangementToString(result.arrangement)
-                  << std::setw(15) << result.runNumber
-                  << std::setw(20) << std::fixed << std::setprecision(8) << result.executionTimeMs
-                  << std::setw(25) << (result.sortedCorrectly ? "Yes" : "No")
-                  << std::setw(15) << result.dataType
-                  << result.ArraySize << std::endl;
+                << std::setw(35) << result.algorithmName
+                << std::setw(25) << arrangementToString(result.arrangement)
+                << std::setw(15) << result.runNumber
+                << std::setw(20) << std::fixed << std::setprecision(4) << result.executionTimeMs
+                << std::setw(25) << (result.sortedCorrectly ? "Yes" : "No")
+                << std::setw(15) << result.dataType
+                << std::setw(15) << result.ArraySize << std::endl;
     }
 }
 
@@ -117,5 +120,7 @@ std::string ResultsController::arrangementToString(const DataArrangement &arrang
             return "First 66% sorted";
         case DataArrangement::RANDOM:
             return "Random";
+        default:
+            return "Unknown arrangement";
     }
 }
