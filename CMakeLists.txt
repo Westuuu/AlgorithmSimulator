@@ -16,4 +16,6 @@ add_executable(Aizo1 main.cpp
         Data/PivotStrategy.h
         Data/GapStrategy.h
         SortingAlgorithms/Quicksort.h
+        Config/ConfigManager.cpp
+        Config/ConfigManager.h
 )

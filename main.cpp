@@ -74,7 +74,7 @@ int main() {
     {
         DataController<float> floatDataController(ARRAY_SIZE, MAX_VALUE);
         SimulationController<float> floatSimulationController(floatDataController, resultsController, ITERATIONS);
-//        floatSimulationController.setPrintResultFlag(true);
+        floatSimulationController.setPrintResultFlag(true);
 
         floatSimulationController.registerAlgorithm("Heap sort - float", HeapSort<float>::sort);
         floatSimulationController.registerAlgorithm("Shellsort - Sedgewick - float", [](float *arr, int n) {
@@ -87,10 +87,6 @@ int main() {
     // Display results
     cout << "\nSimulation Results:" << endl;
     resultsController.printResults();
-
-    // resultsController.saveResultsToCSV("sorting_results.csv");
-
-
 
     return 0;
 }
