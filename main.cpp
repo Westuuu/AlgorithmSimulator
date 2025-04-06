@@ -12,43 +12,44 @@ using namespace std;
 
 
 int main() {
-    const int ARRAY_SIZE = 15000;
+    const int ARRAY_SIZE = 80000;
     const int ITERATIONS = 50;
-    const int MAX_VALUE = ARRAY_SIZE;
+    const int MAX_VALUE = 40000;
+
 
     ResultsController resultsController;
     {
         DataController<int> intDataController(ARRAY_SIZE, MAX_VALUE);
         SimulationController<int> intSimulationController(intDataController, resultsController, ITERATIONS);
-        intSimulationController.setPrintResultFlag(false);
+        // intSimulationController.setPrintResultFlag(true);
 
         // Register sorting algorithms
-        intSimulationController.registerAlgorithm("Insertion Sort", InsertionSort<int>::sort);
-        intSimulationController.registerAlgorithm("HeapSort", HeapSort<int>::sort);
-        intSimulationController.registerAlgorithm("Shellsort - Sedgewick", [](int *arr, int n) {
+       intSimulationController.registerAlgorithm("Insertion Sort - int", InsertionSort<int>::sort);
+        intSimulationController.registerAlgorithm("Heap sort - int", HeapSort<int>::sort);
+        intSimulationController.registerAlgorithm("Shellsort - Sedgewick - int", [](int *arr, int n) {
             ShellSort<int>::sort(arr, n, GapStrategy::SEDGEWICK);
         });
-        intSimulationController.registerAlgorithm("Shellsort - Shell", [](int *arr, int n) {
+        intSimulationController.registerAlgorithm("Shellsort - Shell - int", [](int *arr, int n) {
             ShellSort<int>::sort(arr, n, GapStrategy::SHELL);
         });
 
-        intSimulationController.registerAlgorithm("Quicksort - Middle", [](int *arr, int n) {
+        intSimulationController.registerAlgorithm("Quicksort - Middle - int", [](int *arr, int n) {
             Quicksort<int>::sort(arr, n, PivotStrategy::MIDDLE);
         });
-
-        intSimulationController.registerAlgorithm("Quicksort - Left", [](int *arr, int n) {
+        //
+        intSimulationController.registerAlgorithm("Quicksort - Left - int", [](int *arr, int n) {
             Quicksort<int>::sort(arr, n, PivotStrategy::LEFT);
         });
-        intSimulationController.registerAlgorithm("Quicksort - Right", [](int *arr, int n) {
+        intSimulationController.registerAlgorithm("Quicksort - Right - int", [](int *arr, int n) {
             Quicksort<int>::sort(arr, n, PivotStrategy::RIGHT);
         });
-        intSimulationController.registerAlgorithm("Quicksort - Random", [](int *arr, int n) {
+        intSimulationController.registerAlgorithm("Quicksort - Random - int", [](int *arr, int n) {
             Quicksort<int>::sort(arr, n, PivotStrategy::RANDOM);
         });
 
-//        intSimulationController.registerAlgorithm("STL Sort", [](int *arr, int n) {
-//            std::sort(arr, arr + n);
-//        });
+        // intSimulationController.registerAlgorithm("STL Sort", [](int *arr, int n) {
+        //     std::sort(arr, arr + n);
+        // });
 
         // Run the simulation for ints
         cout << "Running simulation with " << ARRAY_SIZE << " elements..." << endl;
@@ -60,16 +61,28 @@ int main() {
         DataController<double> doubleDataController(ARRAY_SIZE, MAX_VALUE);
         SimulationController<double> doubleSimulationController(doubleDataController, resultsController, ITERATIONS);
 
-//        doubleSimulationController.registerAlgorithm("Heap sort - double", HeapSort<double>::sort);
+        doubleSimulationController.registerAlgorithm("Heap sort - double", HeapSort<double>::sort);
+        doubleSimulationController.registerAlgorithm("Shellsort - Sedgewick - double", [](double *arr, int n) {
+            ShellSort<double>::sort(arr, n, GapStrategy::SEDGEWICK);
+        });
 
         // Run the simulation for doubles
         doubleSimulationController.runSimulation();
     }
 
 
-    DataController<float> floatDataController(ARRAY_SIZE, MAX_VALUE);
-    SimulationController<float> floatSimulationController(floatDataController, resultsController, ITERATIONS);
+    {
+        DataController<float> floatDataController(ARRAY_SIZE, MAX_VALUE);
+        SimulationController<float> floatSimulationController(floatDataController, resultsController, ITERATIONS);
+//        floatSimulationController.setPrintResultFlag(true);
 
+        floatSimulationController.registerAlgorithm("Heap sort - float", HeapSort<float>::sort);
+        floatSimulationController.registerAlgorithm("Shellsort - Sedgewick - float", [](float *arr, int n) {
+            ShellSort<float>::sort(arr, n, GapStrategy::SEDGEWICK);
+        });
+
+        floatSimulationController.runSimulation();
+    }
 
     // Display results
     cout << "\nSimulation Results:" << endl;

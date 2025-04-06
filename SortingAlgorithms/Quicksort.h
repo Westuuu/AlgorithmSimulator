@@ -62,7 +62,7 @@ private:
     }
 
 public:
-    static void sort(T arr[], int n, PivotStrategy pivotStrategy) {
+    static void sort(T arr[], const int n, const PivotStrategy pivotStrategy) {
         sortHelper(arr, 0, n - 1, pivotStrategy);
     }
 };

@@ -95,7 +95,7 @@ void ResultsController::printResults() {
 
     for (const auto &result: results) {
         std::cout << std::left
-                  << std::setw(25) << result.algorithmName
+                  << std::setw(35) << result.algorithmName
                   << std::setw(25) << arrangementToString(result.arrangement)
                   << std::setw(15) << result.runNumber
                   << std::setw(20) << std::fixed << std::setprecision(8) << result.executionTimeMs

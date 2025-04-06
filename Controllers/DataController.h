@@ -8,6 +8,7 @@
 #include "iostream"
 #include "../Data/GenerateData.h"
 #include "../Data/DataArrangement.h"
+#include "map"
 
 template<typename T>
 class DataController {
@@ -18,8 +19,17 @@ private:
     int maxValue;
     DataArrangement dataArrangement;
 
+    bool checkIfSortedASC(T arr[], int n) {
+        for (int i = 1; i < n; ++i) {
+            if (arr[i] < arr[i - 1]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 public:
-    DataController(int arraySize, int maxValue) : arraySize(arraySize), maxValue(maxValue) {
+    DataController(int arraySize, int maxValue) : arraySize(arraySize), maxValue(maxValue), dataArrangement() {
         originalData = new T[arraySize];
         testData = new T[arraySize];
     }
@@ -40,14 +50,34 @@ public:
         }
     }
 
-    bool checkIfSortedASC(T arr[], int n) {
-        for (int i = 1; i < n; ++i) {
-            if (arr[i] < arr[i - 1]) {
+    bool verifyIfSortedCorrectly(T arr[], int n) {
+        if (!checkIfSortedASC(arr, n)) {
+            return false;
+        }
+
+        std::map<T, int> originalDataFrequency;
+        std::map<T, int> testDataFrequency;
+
+        for (int i = 0; i < n; ++i) {
+            ++originalDataFrequency[originalData[i]];
+        }
+        for (int i = 0; i < n; ++i) {
+            ++testDataFrequency[testData[i]];
+        }
+
+        if (originalDataFrequency.size() != testDataFrequency.size()){
+            return false;
+        }
+
+        for (const auto& pair : originalDataFrequency) {
+            auto element = testDataFrequency.find(pair.first);
+            if (element == testDataFrequency.end() || element->second != pair.second){
                 return false;
             }
         }
         return true;
     }
+
 
     void setDataArrangement(DataArrangement &arrangement) {
         dataArrangement = arrangement;

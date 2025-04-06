@@ -20,7 +20,7 @@ private:
     ResultsController &resultsController;
     std::vector<std::function<void(T *, int)>> algorithms;
     std::vector<std::string> algorithmNames;
-    bool PRINTRESULTS;
+    bool PRINTRESULTS = false;
 
     double measureExecutionTime(std::function<void(T *, int)> algorithm) {
         T *data = dataManager.getTestData();
@@ -35,7 +35,7 @@ private:
     }
 
     void printArray(T arr[], int size) {
-        const int maxDisplayElements = 20;
+        constexpr int maxDisplayElements = 50;
         int displayCount = std::min(size, maxDisplayElements);
 
         for (int i = 0; i < displayCount; i++) {
@@ -88,7 +88,7 @@ public:
 
         double executionTime = measureExecutionTime(testedAlgorithm);
 
-        bool sortedCorrectly = dataManager.checkIfSortedASC(data, arraySize);
+        bool sortedCorrectly = dataManager.verifyIfSortedCorrectly(data, arraySize);
 
 
         if (PRINTRESULTS) {
@@ -113,12 +113,16 @@ public:
     }
 
     void runSimulation() {
-        std::vector<DataArrangement> dataArrangements = getDataArrangements();
+        const std::vector<DataArrangement> dataArrangements = getDataArrangements();
+        int k = 0;
 
         for (auto arrangement: dataArrangements) {
             dataManager.setDataArrangement(arrangement);
 
             for (int i = 0; i < ITERATIONS; ++i) {
+                k++;
+                cout << "Running simulation iteration " << k << "/" << ITERATIONS * dataArrangements.size() << endl;
+
                 dataManager.generateData(arrangement);
 
                 for (int j = 0; j < algorithms.size(); ++j) {
