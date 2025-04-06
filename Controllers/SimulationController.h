@@ -137,7 +137,7 @@ public:
 
             std::cout << "Running simulation in TEST_MODE with data from " << TEST_DATA_FILE << std::endl;
 
-            DataArrangement arrangement = DataArrangement::RANDOM;
+            auto arrangement = DataArrangement::RANDOM;
             dataManager.setDataArrangement(arrangement);
             int k = 0;
 

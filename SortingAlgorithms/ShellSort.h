@@ -51,7 +51,7 @@ public:
             case GapStrategy::SEDGEWICK: {
                 std::vector<int> sedgewickTerms = computeSedgewickTerms(n);
 
-                for (int idx = sedgewickTerms.size() - 1; idx >= 0; idx--) {
+                for (int idx = sedgewickTerms.size() - 1; idx >= 0; --idx) {
                     int gap = sedgewickTerms[idx];
                     for (int i = gap; i < n; ++i) {
                         T temp = arr[i];
@@ -68,7 +68,6 @@ public:
             }
         }
     }
-
 };
 
 

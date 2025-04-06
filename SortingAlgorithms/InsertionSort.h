@@ -6,7 +6,6 @@
 #define AIZO1_INSERTIONSORT_H
 
 
-#include <cstddef>
 
 template<typename T>
 class InsertionSort {

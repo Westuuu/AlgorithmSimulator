@@ -153,7 +153,7 @@ public:
         return testData;
     }
 
-    int getArraySize() {
+    const int getArraySize() {
         return arraySize;
     }
 };

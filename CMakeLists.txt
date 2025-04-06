@@ -1,9 +1,15 @@
 cmake_minimum_required(VERSION 3.27)
-project(Aizo1)
+project(AlgorithmSimulator)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(Aizo1 main.cpp
+if(WIN32)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+    
+   
+endif()
+
+add_executable(AlgorithmSimulator main.cpp
         SortingAlgorithms/InsertionSort.h
         SortingAlgorithms/HeapSort.h
         Data/GenerateData.h
@@ -19,3 +25,8 @@ add_executable(Aizo1 main.cpp
         Config/ConfigManager.cpp
         Config/ConfigManager.h
 )
+
+file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/sorting_results")
+
+configure_file(${CMAKE_SOURCE_DIR}/config.ini ${CMAKE_BINARY_DIR}/config.ini COPYONLY)
+configure_file(${CMAKE_SOURCE_DIR}/test_data.csv ${CMAKE_BINARY_DIR}/test_data.csv COPYONLY)

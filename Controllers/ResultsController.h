@@ -7,7 +7,6 @@
 
 #include <vector>
 #include "../Data/DataArrangement.h"
-#include <map>
 
 struct SortingResult {
     std::string algorithmName;

@@ -10,12 +10,19 @@
 #include "SortingAlgorithms/Quicksort.h"
 
 using namespace std;
+namespace fs = std::filesystem;
 
 
 int main() {
     auto config = ConfigManager::getInstance();
-    if (!config->loadConfig("../config.ini")) {
+    fs::path configPath = fs::path("config.ini");
+    if (!config->loadConfig(configPath.string())) {
         cerr << "Config file not found" << endl;
+        configPath = fs::path("..") / "config.ini";
+        if (!config->loadConfig(configPath.string())) {
+            cerr << "Config file not found in alternative location either" << endl;
+            return 1;
+        }
     }
 
     const int ARRAY_SIZE = config->getInt("ARRAY_SIZE", 30000);
@@ -36,7 +43,7 @@ int main() {
     const bool ENABLE_QUICKSORT_RANDOM = config->getBool("ENABLE_QUICKSORT_RANDOM", true);
 
     const bool TEST_MODE = config->getBool("TEST_MODE", false);
-    const string TEST_DATA_FILE = config->getString("TEST_DATA_FILE", "../test_data.csv");
+    const string TEST_DATA_FILE = config->getString("TEST_DATA_FILE", "test_data.csv");
 
     const bool PRINT_EACH_RESULT = config->getBool("PRINT_EACH_RESULT", true);
     const bool SAVE_TO_CSV = config->getBool("SAVE_TO_CSV", false);
@@ -92,8 +99,7 @@ int main() {
         intSimulationController.runSimulation();
     }
     
-    // Only run double and float simulations if not in test mode
-    if (USE_DOUBLE_DATA && !TEST_MODE) {
+    if (USE_DOUBLE_DATA) {
         DataController<double> doubleDataController(ARRAY_SIZE, MAX_VALUE);
         SimulationController<double> doubleSimulationController(doubleDataController, resultsController, ITERATIONS,
                                                                 PRINT_EACH_RESULT, SAVE_TO_CSV, CSV_DIRECTORY);
@@ -139,7 +145,7 @@ int main() {
         doubleSimulationController.runSimulation();
     }
     
-    if (USE_FLOAT_DATA && !TEST_MODE) {
+    if (USE_FLOAT_DATA) {
         DataController<float> floatDataController(ARRAY_SIZE, MAX_VALUE);
         SimulationController<float> floatSimulationController(floatDataController, resultsController, ITERATIONS,
                                                               PRINT_EACH_RESULT, SAVE_TO_CSV, CSV_DIRECTORY);
