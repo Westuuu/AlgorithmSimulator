@@ -27,19 +27,19 @@ private:
     static double calculateMean(const std::vector<double>& times);
     static double calculateMedian(std::vector<double> times);
     static double calculateStdDev(const std::vector<double>& times, double mean);
-    void printStatistics(const std::string& algorithmName, int arraySize, const std::vector<double>& times, size_t avgMemoryUsage);
-    std::map<std::pair<std::string, int>, std::vector<std::pair<double, size_t>>> groupResultsByAlgorithmAndSize();
 
 public:
     void addResult(const SortingResult &result);
 
-    void saveResultsToCSV(const std::string &filename);
+    void saveResultsToCSV(const std::string &filename) const;
 
-    void saveResultsByAlgorithm(const std::string &directory);
+    void saveResultsByAlgorithm(const std::string &directory) const;
 
-    void printResults();
+    void printResults() const;
 
     static std::string arrangementToString(const DataArrangement &arrangement);
+
+    void printStatisticsByAlgorithmAndArrangement() const;
 };
 
 #endif //AIZO1_RESULTSCONTROLLER_H

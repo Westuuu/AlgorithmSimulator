@@ -188,6 +188,7 @@ int main() {
     // Display results
     cout << "\nSimulation Results:" << endl;
     resultsController.printResults();
+    resultsController.printStatisticsByAlgorithmAndArrangement();
 
     return 0;
 }

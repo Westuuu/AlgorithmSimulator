@@ -72,12 +72,12 @@ private:
 public:
     SimulationController(DataController<T> &dataManager, ResultsController &resultsController, const int iterations,
                          bool PRINTRESULTS, bool SAVETOCSV, string CSV_DIRECTORY,
-                         bool TEST_MODE = false, string TEST_DATA_FILE = "test_data.csv") 
+                         bool TEST_MODE = false, string TEST_DATA_FILE = "test_data.csv")
         : ITERATIONS(iterations),
           dataManager(dataManager),
-          resultsController(resultsController), 
+          resultsController(resultsController),
           PRINTRESULTS(PRINTRESULTS),
-          SAVETOCSV(SAVETOCSV), 
+          SAVETOCSV(SAVETOCSV),
           CSV_DIRECTORY(std::move(CSV_DIRECTORY)),
           TEST_MODE(TEST_MODE),
           TEST_DATA_FILE(std::move(TEST_DATA_FILE)) {
@@ -134,17 +134,22 @@ public:
                 std::cerr << "Failed to load test data from " << TEST_DATA_FILE << std::endl;
                 return;
             }
-            
+
             std::cout << "Running simulation in TEST_MODE with data from " << TEST_DATA_FILE << std::endl;
-            
+
             DataArrangement arrangement = DataArrangement::RANDOM;
             dataManager.setDataArrangement(arrangement);
-            
-            for (int j = 0; j < algorithms.size(); ++j) {
-                runAlgorithm(algorithmNames[j], algorithms[j], arrangement, 1);
+            int k = 0;
+
+
+            for (int i = 0; i < ITERATIONS; i++) {
+                k++;
+                cout << "Running simulation iteration " << k << "/" << ITERATIONS << endl;
+                for (int j = 0; j < algorithms.size(); ++j) {
+                    runAlgorithm(algorithmNames[j], algorithms[j], arrangement, i + 1);
+                }
             }
-        }
-        else {
+        } else {
             const std::vector<DataArrangement> dataArrangements = getDataArrangements();
             int k = 0;
 
@@ -163,7 +168,7 @@ public:
                 }
             }
         }
-        
+
         if (SAVETOCSV) {
             resultsController.saveResultsByAlgorithm(CSV_DIRECTORY);
         }
